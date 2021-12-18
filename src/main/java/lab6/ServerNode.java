@@ -25,6 +25,7 @@ import java.util.concurrent.CompletionStage;
 
 public class ServerNode extends AllDirectives {
     private static ActorSystem system;
+    private static ZkWatcher watcher;
     public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
         PORT = Integer.parseInt(args[0]);
         system = ActorSystem.create("routes");;
