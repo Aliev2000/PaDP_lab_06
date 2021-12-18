@@ -5,3 +5,5 @@ import java.util.List;
 public class ServerList {
     private List<String> data;
 
+    public List<String> getData() {
+
