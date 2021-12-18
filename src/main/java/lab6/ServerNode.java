@@ -53,4 +53,35 @@ public class ServerNode extends AllDirectives {
     }
 
     private Route get() {
+        return parameter("url", url -> {
+                    return parameter("count", count -> {
+                        int counter = Integer.parseInt(count);
+                        final Http http = Http.get(system);
+                        if (counter == 0) {
+                            return completeWithFuture(http.singleRequest(HttpRequest.create(url)));
+                        }
+                        return
+                                completeWithFuture(
+                                        http.singleRequest(
+                                                HttpRequest.create(
+                                                        String.format("http://localhost:%d/?url=%s&count=%d",
+                                                                Integer.parseInt(
+                                                                        (String) Patterns
+                                                                                .ask(
+                                                                                        config,
+                                                                                        new ServerRequest(),
+                                                                                        Duration.ofMillis(3000)
+                                                                                )
+                                                                                .toCompletableFuture()
+                                                                                .join()),
+                                                                url,
+                                                                counter - 1
+                                                        )
+                                                )
+                                        )
+                                );
+                    });
+                }
+        );
+    }
 }
