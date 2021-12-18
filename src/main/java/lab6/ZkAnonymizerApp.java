@@ -8,3 +8,5 @@ import java.util.List;
 
 public class ZkAnonymizerApp {
     private static List<ServerNode> serverNodes;
+    public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
+}
