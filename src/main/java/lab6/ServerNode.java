@@ -55,6 +55,10 @@ public class ServerNode extends AllDirectives {
     }
 
     private Route createRoute(ActorSystem PORT) {
+        return route(
+                get()
+        );
+    }
 
     private Route get() {
         return parameter("url", url -> {
