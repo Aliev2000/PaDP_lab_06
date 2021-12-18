@@ -22,6 +22,8 @@ public class ZkWatcher implements Watcher {
         this.zk = zk;
     }
 
+    public ZkWatcher(ActorRef config) {
+
     public void setZk(ZooKeeper zk) {
         this.zk = zk;
     }
