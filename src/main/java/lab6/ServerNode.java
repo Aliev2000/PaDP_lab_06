@@ -24,6 +24,7 @@ import java.time.Duration;
 import java.util.concurrent.CompletionStage;
 
 public class ServerNode extends AllDirectives {
+    private static ActorRef config;
     private static ActorSystem system;
     private static ZkWatcher watcher;
     public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
