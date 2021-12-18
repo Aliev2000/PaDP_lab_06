@@ -8,6 +8,8 @@ import java.util.*;
 public class ConfigStorageActor extends AbstractActor {
     private ArrayList<String> data = new ArrayList<>();
     @Override
+    public Receive createReceive() {
+
     private void saveServerList(ServerList list) {
         data = new ArrayList<>(list.getData());
         System.out.println(data);
