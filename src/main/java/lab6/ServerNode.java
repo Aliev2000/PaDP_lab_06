@@ -26,4 +26,29 @@ import java.util.concurrent.CompletionStage;
 public class ServerNode extends AllDirectives {
     private static ActorSystem system;
     public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
+        PORT = Integer.parseInt(args[0]);
+        system = ActorSystem.create("routes");;
+        config = system.actorOf(Props.create(ConfigStorageActor.class));
+        watcher = new ZkWatcher(config);
+        ZooKeeper zoo = new ZooKeeper("127.0.0.1:2181", 3000, watcher);
+            watcher.setZk(zoo);
+        zoo.create("/servers/s",
+                PORT.toString().getBytes(),
+                ZooDefs.Ids.OPEN_ACL_UNSAFE ,
+                CreateMode.EPHEMERAL_SEQUENTIAL
+        );
+        final Http http = Http.get(system);
+        final ActorMaterializer materializer = ActorMaterializer.create(system);
+        ServerNode instance = new ServerNode();
+        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow;
+        routeFlow = instance.createRoute(system).flow(system, materializer);
+        final CompletionStage<ServerBinding> binding = http.bindAndHandle(
+                routeFlow,
+                ConnectHttp.toHost("localhost", PORT),
+                materializer
+        );
+        System.out.println(String.format("Server online at http://localhost:%d/\nPress RETURN to stop...", PORT));
+        System.in.read();
+        binding.thenCompose(ServerBinding::unbind).thenAccept(unbound -> system.terminate());
+    }
 
