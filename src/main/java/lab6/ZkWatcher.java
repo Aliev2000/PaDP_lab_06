@@ -21,5 +21,7 @@ public class ZkWatcher implements Watcher {
     }
 
     @Override
+    public void process(WatchedEvent event) {
+                try {
     }
 }
