@@ -24,3 +24,4 @@ import java.time.Duration;
 import java.util.concurrent.CompletionStage;
 
 public class ServerNode extends AllDirectives {
+    private static ActorSystem system;
