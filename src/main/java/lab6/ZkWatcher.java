@@ -13,6 +13,7 @@ import java.util.List;
 
 
 public class ZkWatcher implements Watcher {
+    private final ActorRef config;
     private static final String SERVER_PATH = "/servers";
 
     public ZkWatcher(ActorRef config, ZooKeeper zk) {
