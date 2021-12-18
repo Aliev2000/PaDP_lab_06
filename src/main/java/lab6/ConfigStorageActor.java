@@ -6,6 +6,7 @@ import akka.japi.pf.ReceiveBuilder;
 import java.util.*;
 
 public class ConfigStorageActor extends AbstractActor {
+    @Override
     private void saveServerList(ServerList list) {
         data = new ArrayList<>(list.getData());
         System.out.println(data);
