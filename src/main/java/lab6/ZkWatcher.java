@@ -20,6 +20,8 @@ public class ZkWatcher implements Watcher {
         this.zk = zk;
     }
 
+    public void setZk(ZooKeeper zk) {
+
     @Override
     public void process(WatchedEvent event) {
         if (event == null) {
