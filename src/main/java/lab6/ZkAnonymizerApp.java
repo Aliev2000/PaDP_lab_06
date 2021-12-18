@@ -7,3 +7,4 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ZkAnonymizerApp {
+    private static List<ServerNode> serverNodes;
