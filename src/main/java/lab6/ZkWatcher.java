@@ -23,6 +23,8 @@ public class ZkWatcher implements Watcher {
     }
 
     public ZkWatcher(ActorRef config) {
+        this.config = config;
+    }
 
     public void setZk(ZooKeeper zk) {
         this.zk = zk;
